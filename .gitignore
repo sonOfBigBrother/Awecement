@@ -63,3 +63,6 @@ android/app/src/main/assets
 
 # test
 __tests__
+
+# log files
+*.log
