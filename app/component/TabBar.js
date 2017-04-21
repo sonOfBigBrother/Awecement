@@ -7,7 +7,7 @@ import TabNavigator from 'react-native-tab-navigator';
 import Icon from 'react-native-vector-icons/Ionicons';
 import px2dp from '../util/px2dp';
 import HomeFragment from '../page/HomeFragment';
-import InvestgationFragment from '../page/InvestgationFragment';
+import InvestigationFragment from '../page/InvestigationFragment';
 import MeFragment from '../page/MeFragment';
 import QuestionnaireFragment  from '../page/QuestionnaireFragment';
 
@@ -15,7 +15,8 @@ export default class TabBar extends React.Component{
   static propTypes = {
     navigator:React.PropTypes.any,
     selectedColor:React.PropTypes.string,
-    normalColor:React.PropTypes.string
+    normalColor:React.PropTypes.string,
+    user:React.PropTypes.object
   };
 
   static defaultProps = {
@@ -27,12 +28,12 @@ export default class TabBar extends React.Component{
     super(props);
     this.state = {
       selectedTab: 'home',
-      tabName: ['首页','调查','问卷','我']
+      tabName: ['首页','调查','问卷','我'],
     };
   }
 
   render(){
-    let userId = 1;
+    const {user} = this.props;
     const {selectedColor} = this.props;
     const {tabName} = this.state;
     return(
@@ -50,7 +51,7 @@ export default class TabBar extends React.Component{
           onPress={() => this.setState({ selectedTab: 'home' })}>
           {<HomeFragment navigator={this.props.navigator}/>}
         </TabNavigator.Item>
-        { userId == 1 ?
+        { user.roleId == 4 ? null:
           <TabNavigator.Item
             tabStyle={styles.tabStyle}
             title={tabName[1]}
@@ -59,8 +60,8 @@ export default class TabBar extends React.Component{
             renderIcon={() => <Image style={styles.tab} source={this.state.compassNormal} />}
             renderSelectedIcon={() => <Image style={styles.tab} source={this.state.compassSelected} />}
             onPress={() => this.setState({ selectedTab: 'compass' })}>
-            {<InvestgationFragment />}
-          </TabNavigator.Item>: null
+            {<InvestigationFragment />}
+          </TabNavigator.Item>
         }
         <TabNavigator.Item
           tabStyle={styles.tabStyle}
@@ -80,7 +81,7 @@ export default class TabBar extends React.Component{
           renderIcon={() => <Image style={styles.tab} source={this.state.meNormal} />}
           renderSelectedIcon={() => <Image style={styles.tab} source={this.state.meSelected} />}
           onPress={() => this.setState({ selectedTab: 'me' })}>
-          {<MeFragment/>}
+          {<MeFragment user = {this.props.user}/>}
         </TabNavigator.Item>
       </TabNavigator>
     );
@@ -107,7 +108,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   tabStyle:{
-    padding: px2dp(8)
+    padding: px2dp(1)
   },
   tab: {
     width: px2dp(22),

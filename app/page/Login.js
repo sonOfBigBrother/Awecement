@@ -2,23 +2,30 @@
  * 登录界面
  * Created by David Xie on 2017/3/14.
  */
-import React from 'react';
+import React,{Component, PropTypes} from 'react';
 import {
   View,
   StyleSheet,
+  TextInput,
+  Button,
 } from 'react-native';
-import {
-  FormInput,
-  Button
-} from 'react-native-elements';
-import httpUtil from '../util/httpUtil';
-import Service from '../util/Service';
 import px2dp from '../util/px2dp';
 import HomePage from './Home';
+import TimerMixin from 'react-timer-mixin';
+import Toast from '@remobile/react-native-toast';
+import * as ConfigAction from '../action/config';
+import * as UserAction from '../action/user';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import {storageKey} from '../config';
 
-export default class LoginPage extends React.Component {
+class LoginPage extends Component {
   static propTypes = {
-    navigator:React.PropTypes.any
+    navigator:PropTypes.object,
+    userAction:PropTypes.object,
+    configAction:PropTypes.object,
+    router:PropTypes.object,
+    roleId:PropTypes.number
   };
   constructor(props){
     super(props);
@@ -28,39 +35,69 @@ export default class LoginPage extends React.Component {
     };
   }
   _login() {
-    const {navigator} = this.props;
-    if (this.state.password == '' || this.state.username == ''){
-      alert('帐号或密码不能为空');
+    if (this.state.username == ''){
+      Toast.show('请输入用户名');
+      return;
+    } else if(this.state.password == ''){
+      Toast.show('请输入密码');
       return;
     }
-    let path = Service.host + Service.login;
-    httpUtil.post(path,{
-      username:this.state.username,
-      password:this.state.password
-    },function (data) {
-      if (data.code == 200){
-        navigator.replace({
-          component:HomePage
-        });
-      } else {
-        alert(data.msg);
+    this.props.userAction.login({
+      username: this.state.username,
+      password: this.state.password,
+      resolved: (data) => {
+        if (data.code ==200){
+          this._handleLoginResolved(data);
+        } else {
+          LoginPage._handleLoginRejected();
+        }
+      },
+      rejected: (data) => {
+        if (data){
+          LoginPage._handleLoginRejected();
+        }
       }
     });
+  }
 
+  _handleLoginResolved(data){
+    let user = {roleId:data.roleId,
+      fromWhere:data.fromWhere,
+      username:this.state.username};
+    this.props.configAction.updateConfig({
+      key: storageKey.USER_TOKEN,
+      value:data
+    });
+
+    this.timer = TimerMixin.setTimeout(() => {
+      this.props.router.resetTo({component:HomePage, name:'home'}, {user});
+    }, 2000);
+  }
+
+  static _handleLoginRejected(){
+    Toast.show('登录失败，帐号或密码错误');
   }
   render(){
     return(
       <View style={styles.container}>
         <View style={styles.form}>
           <View style={styles.editView1}>
-            <FormInput placeholder = "用户名"
-                       style={styles.edit} onChangeText = {(username) => this.setState({username})}/>
+            <TextInput placeholder = "用户名"
+                       underlineColorAndroid="transparent"
+                       placeholderTextColor="#c4c4c4"
+                       style={styles.edit}
+                       onChangeText = {(username) => this.setState({username})}/>
           </View>
           <View style={styles.editView2}>
-            <FormInput placeholder = "密码"
-                       style={styles.edit} onChangeText = {(password) => this.setState({password})}/>
+            <TextInput placeholder = "密码"
+                       underlineColorAndroid="transparent"
+                       placeholderTextColor="#c4c4c4"
+                       style={styles.edit}
+                       onChangeText = {(password) => this.setState({password})}/>
           </View>
-          <Button title="登录" onPress={() => this._login()}/>
+          <View style={{marginTop: px2dp(10)}}>
+            <Button title="登录" onPress={() => this._login()}/>
+          </View>
         </View>
       </View>
     );
@@ -97,5 +134,10 @@ const styles =StyleSheet.create({
     borderBottomRightRadius: 3
   },
 });
-
+export default connect(null, dispatch => ({
+  userAction : bindActionCreators(UserAction, dispatch),
+  configAction : bindActionCreators(ConfigAction, dispatch)
+}), null, {
+  withRef: true
+})(LoginPage);
 
