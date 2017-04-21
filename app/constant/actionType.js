@@ -20,6 +20,7 @@ export const LOGIN = 'LOGIN';
 //config
 export const UPDATE_CONFIG = 'UPDATE_CONFIG';
 export const GET_CONFIG = 'GET_CONFIG';
+export const REMOVE_CONFIG = 'REMOVE_CONFIG';
 
 //common
 export const SHOW_MESSAGE = 'SHOW_MESSAGE';
