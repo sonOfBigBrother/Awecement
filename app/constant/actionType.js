@@ -3,7 +3,7 @@
  * Created by David Xie on 2017/4/19.
  */
 //message
-export const DISPLAY_MESSAGE = 'DISPLAY_MESSAGE';
+export const GET_MESSAGE = 'GET_MESSAGE';
 export const UPDATE_MESSAGE = 'UPDATE_MESSAGE';
 export const REMOVE_MESSAGE = 'REMOVE_MESSAGE';
 export const ADD_MESSAGE = 'ADD_MESSAGE';
