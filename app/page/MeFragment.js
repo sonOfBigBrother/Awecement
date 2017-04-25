@@ -12,17 +12,30 @@ import theme from '../config/theme';
 import px2dp from '../util/px2dp';
 import Avatar from '../component/Avatar';
 import {connect} from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as ConfigAction from '../action/config';
+import {storageKey} from '../config';
+import Login from './Login';
 
 class MeFragment extends Component{
   static propTypes = {
-    user:PropTypes.object
+    user:PropTypes.object,
+    router:PropTypes.object,
+    configAction:PropTypes.object
   };
 
   constructor(props){
     super(props);
   }
 
-  _logout(){}
+  _logout(){
+    const {router, configAction } = this.props;
+    configAction.removeConfig({
+      key: storageKey.USER_TOKEN
+    }).then(()=>{
+      router.resetTo({component:Login,name:'login'});
+    });
+  }
   render(){
     const {user} = this.props;
     return(
@@ -40,7 +53,7 @@ class MeFragment extends Component{
         <View style={styles.list}>
           { Platform.OS === 'android' ?
             <TouchableNativeFeedback
-              onPress={this._logout()}>
+              onPress={() => this._logout()}>
               <View style={[styles.listItem, {justifyContent: 'center'}]}>
                 <Text style={{color: 'red', fontSize: px2dp(15)}}>退出登录</Text>
               </View>
@@ -98,5 +111,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1/PixelRatio.get()
   },
 });
-export default connect(null
-, null, null,{withRef:true})(MeFragment);
+export default connect(state => ({config:state.config}),
+  dispatch => ({configAction:bindActionCreators(ConfigAction, dispatch)}),
+  null,{withRef:true})(MeFragment);
