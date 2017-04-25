@@ -9,7 +9,8 @@ import TabBar from '../component/TabBar';
 export default class HomePage extends React.Component{
   static propTypes = {
     navigator:PropTypes.object,
-    user:PropTypes.object
+    user:PropTypes.object,
+    router:PropTypes.object
   };
 
   constructor(props){
@@ -19,7 +20,9 @@ export default class HomePage extends React.Component{
   render(){
     return(
       <View style={{flex: 1, justifyContent: 'flex-end'}}>
-        <TabBar navigator={this.props.navigator} user={this.props.user}/>
+        <TabBar navigator={this.props.navigator}
+                user={this.props.user}
+                router = {this.props.router}/>
       </View>
     );
   }

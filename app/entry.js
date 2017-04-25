@@ -44,7 +44,7 @@ class Navigation extends React.Component{
   render(){
     return(
       <Navigator
-        initialRoute={{component: LoginPage}}
+        initialRoute={{component: LoginPage, name:'login'}}
         configureScene={this.configureScene.bind(this)}
         renderScene={this.renderScene.bind(this)}
         onDidFocus={this.onDidFocus.bind(this)}/>

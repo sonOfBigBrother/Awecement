@@ -11,14 +11,14 @@ export function setItem(key, value) {
 
 export function mergeItem(key, value) {
   if (key && value){
-    return AsyncStorage.mergeItem(key, JSON.stringify(value));
+    return AsyncStorage.mergeItem(key, value);
   }
 }
 
 export function getItem(key) {
   return AsyncStorage.getItem(key)
     .then(function (value) {
-      return JSON.parse(value);
+      return value;
     });
 }
 

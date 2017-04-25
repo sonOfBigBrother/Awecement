@@ -16,7 +16,8 @@ export default class TabBar extends React.Component{
     navigator:React.PropTypes.any,
     selectedColor:React.PropTypes.string,
     normalColor:React.PropTypes.string,
-    user:React.PropTypes.object
+    user:React.PropTypes.object,
+    router:React.PropTypes.object
   };
 
   static defaultProps = {
@@ -49,7 +50,7 @@ export default class TabBar extends React.Component{
           renderIcon={() => <Image style={styles.tab} source={this.state.homeNormal} />}
           renderSelectedIcon={() => <Image style={styles.tab} source={this.state.homeSelected} />}
           onPress={() => this.setState({ selectedTab: 'home' })}>
-          {<HomeFragment navigator={this.props.navigator}/>}
+          {<HomeFragment navigator={this.props.navigator} user = {user} router = {this.props.router}/>}
         </TabNavigator.Item>
         { user.roleId == 4 ? null:
           <TabNavigator.Item
@@ -81,7 +82,7 @@ export default class TabBar extends React.Component{
           renderIcon={() => <Image style={styles.tab} source={this.state.meNormal} />}
           renderSelectedIcon={() => <Image style={styles.tab} source={this.state.meSelected} />}
           onPress={() => this.setState({ selectedTab: 'me' })}>
-          {<MeFragment user = {this.props.user}/>}
+          {<MeFragment user = {this.props.user} router={this.props.router}/>}
         </TabNavigator.Item>
       </TabNavigator>
     );

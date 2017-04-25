@@ -49,12 +49,12 @@ class LoginPage extends Component {
         if (data.code ==200){
           this._handleLoginResolved(data);
         } else {
-          LoginPage._handleLoginRejected();
+          this._handleLoginRejected();
         }
       },
       rejected: (data) => {
         if (data){
-          LoginPage._handleLoginRejected();
+          this._handleLoginRejected();
         }
       }
     });
@@ -66,7 +66,7 @@ class LoginPage extends Component {
       username:this.state.username};
     this.props.configAction.updateConfig({
       key: storageKey.USER_TOKEN,
-      value:data
+      value:data.token
     });
 
     this.timer = TimerMixin.setTimeout(() => {
@@ -74,7 +74,7 @@ class LoginPage extends Component {
     }, 2000);
   }
 
-  static _handleLoginRejected(){
+  _handleLoginRejected(){
     Toast.show('登录失败，帐号或密码错误');
   }
   render(){

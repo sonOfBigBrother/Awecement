@@ -63,7 +63,6 @@ export function request(uri, type = 'GET', headers = {}, data=''){
     //   console.log('data:');
     //   console.log(data);
     // }
-
     return timeoutFetch(timeout, fetch(uri, fetchOption))
       .then(filterStatus)
       .then(filterJson)
