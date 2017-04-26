@@ -9,7 +9,7 @@ export default {
   },
   message:{
     getMsgForEmployee:host + '/msg/employee/getMsg',
-    getMsgForResearch:host + '/msg/researcher/getMsg',
+    getMsgForResearcher:host + '/msg/researcher/getMsg',
     getMsgForPublisher:host + '/msg/publisher/getMsg',
     addMsg:host + '/msg/addMsg',
     delMsg:host + '/msg/delMsg',
@@ -18,18 +18,18 @@ export default {
   research:{
     publisher:{
       publish:host + '/research/publisher/publish',
-      delete:host + '/research/publisher/delete',
-      queryForPublisher:host + '/research/publisher/query/?publisher=',
-      queryAcceptedForPublisher:host + '/research/publisher/queryAccepted/?publisher=',
-      queryRefusedForPublisher:host + '/research/publisher/queryRefused/?publisher=',
+      deleteResearch:host + '/research/publisher/delete',
+      queryForPublisher:host + '/research/publisher/query',
+      queryAcceptedForPublisher:host + '/research/publisher/queryAccepted',
+      queryRefusedForPublisher:host + '/research/publisher/queryRefused',
     },
     receiver:{
       accept:host + '/research/receiver/accept',
       refuse:host + '/research/receiver/refuse',
       commit:host + '/research/receiver/commit',
-      queryForReceiver:host + '/research/receiver/query/?receiver=',
-      queryAcceptedForReceiver:host + '/research/receiver/queryAccepted/?receiver=',
-      queryRefusedForReceiver:host + '/research/receiver/queryRefused/?receiver=',
+      queryForReceiver:host + '/research/receiver/query',
+      queryAcceptedForReceiver:host + '/research/receiver/queryAccepted',
+      queryRefusedForReceiver:host + '/research/receiver/queryRefused',
     }
   }
 };
