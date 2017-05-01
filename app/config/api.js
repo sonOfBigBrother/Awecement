@@ -31,5 +31,13 @@ export default {
       queryAcceptedForReceiver:host + '/research/receiver/queryAccepted',
       queryRefusedForReceiver:host + '/research/receiver/queryRefused',
     }
+  },
+  questionnaire:{
+    queryForInviter:host + '/quest/inviter/query',
+    queryForInvitee:host + '/quest/invitee/query',
+    queryForManager:host + '/quest/manager/query',
+    queryForInviterByCondition:host + '/quest/inviter/queryByCondition',
+    queryForInviteeByCondition:host + '/quest/invitee/queryByCondition',
+    queryForManagerByCondition:host + '/quest/manager/queryByCondition'
   }
 };
