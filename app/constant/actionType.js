@@ -27,5 +27,9 @@ export const GET_CONFIG = 'GET_CONFIG';
 export const REMOVE_CONFIG = 'REMOVE_CONFIG';
 
 //common
-export const SHOW_MESSAGE = 'SHOW_MESSAGE';
+export const SHOW_LOG_MESSAGE = 'SHOW__LOG_MESSAGE';
 export const FETCH_UPDATE_INFO = 'FETCH_UPDATE_INFO';
+
+//questionnaire
+export const GET_QUESTIONNAIRE = 'GET_QUESTIONNAIRE';
+export const QUERY_BY_CONDITION = 'QUERY_BY_CONDITION';
