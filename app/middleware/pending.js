@@ -1,11 +1,6 @@
 let sequenceList = {};
 const minPendingTime = 500;
 
-/*
-*  I just use this to fix a bugs about when the request is too quickly, the RefreshControl can't update the refreshing.
-*  It's a bug, but I don't know how to fix it, so use this hack way to do it.
-* */
-
 export default function () {
   return next => action => {
     const { meta={}} = action;

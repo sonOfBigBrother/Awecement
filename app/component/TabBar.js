@@ -13,7 +13,6 @@ import QuestionnaireFragment  from '../page/QuestionnaireFragment';
 
 export default class TabBar extends React.Component{
   static propTypes = {
-    navigator:React.PropTypes.any,
     selectedColor:React.PropTypes.string,
     normalColor:React.PropTypes.string,
     user:React.PropTypes.object,
@@ -34,7 +33,7 @@ export default class TabBar extends React.Component{
   }
 
   render(){
-    const {user} = this.props;
+    const {user, router} = this.props;
     const {selectedColor} = this.props;
     const {tabName} = this.state;
     return(
@@ -50,7 +49,7 @@ export default class TabBar extends React.Component{
           renderIcon={() => <Image style={styles.tab} source={this.state.homeNormal} />}
           renderSelectedIcon={() => <Image style={styles.tab} source={this.state.homeSelected} />}
           onPress={() => this.setState({ selectedTab: 'home' })}>
-          {<HomeFragment navigator={this.props.navigator} user = {user} router = {this.props.router}/>}
+          {<HomeFragment  user = {user} router = {router}/>}
         </TabNavigator.Item>
         { user.roleId == 4 ? null:
           <TabNavigator.Item
@@ -61,7 +60,7 @@ export default class TabBar extends React.Component{
             renderIcon={() => <Image style={styles.tab} source={this.state.compassNormal} />}
             renderSelectedIcon={() => <Image style={styles.tab} source={this.state.compassSelected} />}
             onPress={() => this.setState({ selectedTab: 'compass' })}>
-            {<InvestigationFragment />}
+            {<InvestigationFragment user={user} router={router} />}
           </TabNavigator.Item>
         }
         <TabNavigator.Item
@@ -72,7 +71,7 @@ export default class TabBar extends React.Component{
           renderIcon={() => <Image style={styles.tab} source={this.state.questionnaireNormal} />}
           renderSelectedIcon={() => <Image style={styles.tab} source={this.state.questionnaireSelected} />}
           onPress={() => this.setState({ selectedTab: 'questionnaire' })}>
-          {<QuestionnaireFragment/>}
+          {<QuestionnaireFragment user = {user} />}
         </TabNavigator.Item>
         <TabNavigator.Item
           tabStyle={styles.tabStyle}
@@ -82,7 +81,7 @@ export default class TabBar extends React.Component{
           renderIcon={() => <Image style={styles.tab} source={this.state.meNormal} />}
           renderSelectedIcon={() => <Image style={styles.tab} source={this.state.meSelected} />}
           onPress={() => this.setState({ selectedTab: 'me' })}>
-          {<MeFragment user = {this.props.user} router={this.props.router}/>}
+          {<MeFragment user = {user} router={this.props.router}/>}
         </TabNavigator.Item>
       </TabNavigator>
     );

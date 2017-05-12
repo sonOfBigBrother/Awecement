@@ -17,7 +17,7 @@ function filterStatus(res) {
   if (res){
     return res;
   } else {
-    throw new Error('I do not know');
+    throw new Error('something bad happened');
   }
 }
 
@@ -39,7 +39,7 @@ function timeoutFetch(ms, promise) {
   });
 }
 
-export function request(uri, type = 'GET', headers = {}, data=''){
+export function request(uri, type = 'GET', headers = {}, data){
   return UserService.getToken().then((token) => {
     if (!headers['Authorization']){
       headers['Authorization'] = token;
@@ -76,7 +76,7 @@ export function get(uri, headers = {}) {
   return request(uri, 'GET', headers);
 }
 
-export function post(uri, data = '', headers = {}, flag = true) {
+export function post(uri, data , flag = true, headers = {}) {
   if (flag){
     headers['Content-type'] = 'application/x-www-form-urlencoded';
   }

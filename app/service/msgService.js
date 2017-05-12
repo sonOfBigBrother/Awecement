@@ -10,7 +10,7 @@ export function getMsgForUser(roleId) {
     uri = API.message.getMsgForPublisher;
     break;
   case 3:
-    uri = API.message.getMsgForResearch;
+    uri = API.message.getMsgForResearcher;
     break;
   case 4:
     uri = API.message.getMsgForEmployee;

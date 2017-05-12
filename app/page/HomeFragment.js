@@ -8,7 +8,6 @@ import {Button} from 'react-native-elements';
 import theme from '../config/theme';
 import px2dp from '../util/px2dp';
 import MsgList from '../component/listView/msgList';
-import MsgSwipeList from '../component/listView/msgSwipeList';
 import AddMsg from './AddMsg';
 
 export default class HomeFragment extends React.Component{
@@ -34,14 +33,15 @@ export default class HomeFragment extends React.Component{
         <View style={styles.actionBar}>
           <Text style={{color: theme.actionBar.fontColor, fontSize: theme.actionBar.fontSize, paddingLeft:px2dp(160)}}>首页</Text>
           <View paddingLeft={px2dp(100)}>
-            {user.roleId == 2 ? <Button color={theme.actionBar.fontColor} backgroundColor={theme.themeColor}
-
+            {user.roleId == 2 ? <Button color={theme.actionBar.fontColor}
+                                        backgroundColor={theme.themeColor}
                                         title="发布" onPress={()=> this._publishMsg()}/>
               :null}
           </View>
         </View>
-        {user.roleId == 2 ? <MsgSwipeList user = {user} router={router} />:
-         <MsgList user = {user}/>}
+        <View style={{flex:1}}>
+          <MsgList user = {user} router={router} />
+        </View>
       </View>
     );
   }
@@ -49,7 +49,8 @@ export default class HomeFragment extends React.Component{
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.pageBackgroundColor
+    backgroundColor: theme.pageBackgroundColor,
+    marginBottom:px2dp(49)
   },
   actionBar: {
     flexDirection:'row',
