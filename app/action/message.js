@@ -12,6 +12,10 @@ export const getMsgForUser = createAction(types.GET_MESSAGE,
 export const deleteMsg = createAction(types.REMOVE_MESSAGE,
   async(id) => {
     return await msgService.deleteMsg(id);
+  },(id) => {
+    return {
+      id
+    };
   });
 
 export const updateMsg = createAction(types.UPDATE_MESSAGE,

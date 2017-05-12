@@ -7,7 +7,7 @@ import * as storageService from '../util/storage';
 
 export const updateConfig = createAction(
   types.UPDATE_CONFIG,
-  async({key, value}) => {
+  async(key, value) => {
     return storageService.mergeItem(key, value);
   },(key, value, resolved, rejected) => {
     return {
