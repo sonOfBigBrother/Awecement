@@ -20,7 +20,8 @@ export function getQuestionnaireForUser(roleId) {
   return requestService.get(uri);
 }
 
-export function getQuestionnaireForUserByCondition(roleId, creationTime, submissionTime, inviter='',receiver='') {
+export function getQuestionnaireForUserByCondition(roleId, creationTime, submissionTime,
+                                                   inviter='',receiver='', productionCapacity, province) {
   let uri = '';
   switch (roleId){
   case 3:
@@ -33,6 +34,6 @@ export function getQuestionnaireForUserByCondition(roleId, creationTime, submiss
     uri = API.questionnaire.queryForInviteeByCondition;
     break;
   }
-  let data = `creationTime=${creationTime}&submissionTime=${submissionTime}&inviter=${inviter}&receiver=${receiver}`;
+  let data = `creationTime=${creationTime}&submissionTime=${submissionTime}&inviter=${inviter}&receiver=${receiver}&productionCapacity=${productionCapacity}&province=${province}`;
   return requestService.post(uri, data);
 }

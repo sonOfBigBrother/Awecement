@@ -10,11 +10,13 @@ export const getQuestionnaireForUser = createAction(types.GET_QUESTIONNAIRE,
     return await QuestionnaireService.getQuestionnaireForUser(roleId);
   });
 
-export const  getQuestionnaireForUserByCondition = createAction(types.QUERY_BY_CONDITION,
-  async({roleId, creationTime, submissionTime, inviter,receiver}) => {
+export const getQuestionnaireByCondition = createAction(types.QUERY_BY_CONDITION,
+  async({roleId, creationTime, submissionTime,
+    inviter, receiver, productionCapacity, province}) => {
     return await QuestionnaireService
       .getQuestionnaireForUserByCondition(roleId, creationTime,
-        submissionTime, inviter, receiver);
+        submissionTime, inviter,
+        receiver, productionCapacity, province);
   });
 
 
