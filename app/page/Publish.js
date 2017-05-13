@@ -107,7 +107,7 @@ class PublishResearch extends React.Component{
               format='YYYY-MM-DD'
               confirmBtnText='确认'
               cancelBtnText='取消'
-              iconSource={require('../image/google_calendar.png')}
+              iconSource={require('../image/date_icon.png')}
               onDateChange={(startDate) => this.setState({startDate})}/>
           </View>
           <View style={{height: 1/PixelRatio.get(), backgroundColor:'#c4c4c4'}}/>
@@ -122,7 +122,7 @@ class PublishResearch extends React.Component{
               format='YYYY-MM-DD'
               confirmBtnText='确认'
               cancelBtnText='取消'
-              iconSource={require('../image/google_calendar.png')}
+              iconSource={require('../image/date_icon.png')}
               onDateChange={(endDate) => this.setState({endDate})}/>
           </View>
           <View style={{marginTop: px2dp(15)}}>
